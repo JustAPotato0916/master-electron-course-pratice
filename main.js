@@ -1,7 +1,18 @@
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, ipcMain} = require('electron')
 const windowStateKeeper = require('electron-window-state')
+const readItem = require('./readItem')
+const appMenu = require("./menu")
 
 let mainWindow
+
+// Listen for new item request
+ipcMain.on('new-item', (e, itemUrl) => {
+    
+    // Get new item and send back to renderer
+    readItem(itemUrl, item => {
+        e.sender.send('new-item-success', item)
+    })
+})
 
 function createWindow () {
 
@@ -19,6 +30,9 @@ function createWindow () {
       nodeIntegration: true
     }
   })
+
+  // Create main app menu
+  appMenu(mainWindow.webContents)
 
   mainWindow.loadFile('renderer/main.html')
 
