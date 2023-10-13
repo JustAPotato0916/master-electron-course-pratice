@@ -1,26 +1,50 @@
 {
-  "name": "master-electron-course-pratice",
-  "version": "1.0.0",
+  "name": "readit",
+  "version": "1.0.1",
   "description": "Follow the Master Electron Course",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "watch": "nodemon --exec electron .",
-    "reset": "git reset --hard"
+    "reset": "git reset --hard",
+    "build": "electron-builder -w",
+    "release": "electron-builder -w --publish=onTagOrDraft"
   },
   "repository": "https://github.com/JustAPotato0916/master-electron-course-pratice",
+  "homepage": "https://github.com/JustAPotato0916/master-electron-course-pratice",
   "keywords": [
     "Electron",
     "Master Electron",
     "demo"
   ],
-  "author": "GitHub, JustAPotato0916",
+  "author": "JustAPotato0916",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^9.0.0",
+    "electron-builder": "^24.6.4",
     "nodemon": "^2.0.0"
   },
   "dependencies": {
+    "electron-log": "^4.4.8",
+    "electron-updater": "^6.1.4",
     "electron-window-state": "^5.0.3"
+  },
+  "build": {
+    "appId": "com.justapotato0916.readit",
+    "copyright": "Copyright (c) 2023",
+    "publish": {
+      "provider": "github"
+    },
+    "mac": {
+      "category": "public.app-category.productivity"
+    },
+    "win": {
+      "certificateFile": "private/JustAPotato0916.pfx",
+      "certificatePassword": "",
+      "publisherName": "JustAPotato0916"
+    },
+    "linux": {
+      "category": "Utility"
+    }
   }
 }

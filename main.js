@@ -2,6 +2,7 @@ const {app, BrowserWindow, ipcMain} = require('electron')
 const windowStateKeeper = require('electron-window-state')
 const readItem = require('./readItem')
 const appMenu = require("./menu")
+const updater = require("./updater")
 
 let mainWindow
 
@@ -15,6 +16,9 @@ ipcMain.on('new-item', (e, itemUrl) => {
 })
 
 function createWindow () {
+
+  // Check for updates
+  setTimeout(updater, 1500)
 
   // Win state keeper
   let state = windowStateKeeper({
@@ -37,8 +41,6 @@ function createWindow () {
   mainWindow.loadFile('renderer/main.html')
 
   state.manage(mainWindow)
-
-  mainWindow.webContents.openDevTools();
 
   mainWindow.on('closed',  () => {
     mainWindow = null
